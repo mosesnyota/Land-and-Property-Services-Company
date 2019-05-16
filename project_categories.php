@@ -28,9 +28,9 @@
                         
                         function WarningDelete(id) {
 
-                            if (confirm("WARNING !!\n\nYou are about to delete this Product Category\n\nDo you want to continue?")) {
+                            if (confirm("WARNING !!\n\nYou are about to delete this Project Category\n\nDo you want to continue?")) {
 
-                                window.location = "delete_product_categories.php?id=" + id;
+                                window.location = "delete_project_categories.php?id=" + id;
                                 /* $.ajax({
                                  type: "POST",
                                  url: "delete_customer.php",
@@ -62,12 +62,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-      Product Categories
+     PROJECT CATEGORIES
 
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Products</a></li>
+        <li><a href="#">Projects</a></li>
         <li class="active">Categories</li>
       </ol>
     </section>
@@ -80,7 +80,7 @@
             
            <div class="box-footer clearfix no-border">
               <button type="button" class="btn btn-success btn-lg pull-left"  data-toggle="modal" data-target="#modal_new_customer"> ADD CATEGORY</button>
-              <a href="pdf_product_categories.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
+              <a href="pdf_project_categories.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
            </div>
           
             <!-- /.box-header -->
@@ -89,7 +89,7 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Product Category</th>
+                  <th>Project Category</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
@@ -98,7 +98,7 @@
            <?php 
            
            include('dao/connect.php');
-                            $statement = "select * from product_category";
+                            $statement = "select * from project_category";
                             $result = $connection->query($statement);
                         
            
@@ -112,7 +112,7 @@
 
      
                  
-                  <td><a href="product_categories_edit.php?id=<?php echo $row['category_id'] ?>" title="Click to Edit Customer Details"><i  <button type="button" class="btn btn-success hvr-icon-float-away btn-sm btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button></a></td>
+                  <td><a href="project_categories_edit.php?id=<?php echo $row['category_id'] ?>" title="Click to Edit "><i  <button type="button" class="btn btn-success hvr-icon-float-away btn-sm btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button></a></td>
                 <td> <a href="#" onclick="return WarningDelete(<?php echo $row['category_id'] ?>);" title="Click To Delete"><i <button type="button" class="btn btn-danger btn-sm hvr-icon-sink-away"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></i></a></td>		
                                                  
                 </tr>
@@ -190,16 +190,16 @@
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">ADD NEW PRODUCT CATEGORY</h4>
+                <h4 class="modal-title">ADD NEW PROJECT CATEGORY</h4>
               </div>
               <div class="modal-body">
                   
                   
-                  <form role="form" action="save_product_categories.php" method="post"  enctype="multipart/form-data">
+                  <form role="form" action="save_project_categories.php" method="post"  enctype="multipart/form-data">
               <div class="box-body"> 
            
                 <div class="form-group">
-                  <label for="category">Product Category:</label>
+                  <label for="category">PRODUCT CATEGORY:</label>
                   <input name="category" type="text" class="form-control" id="category" name="category" required placeholder="Product Category">
                 </div>
                   

@@ -8,7 +8,7 @@
  $server = 'localhost';
  $user = 'root';
  $pass = '';
- $db = 'property';
+ $db = 'company';
  
  
  

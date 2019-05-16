@@ -16,16 +16,16 @@
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
           <li>
-              <a href="shop2.php"><i class="btn btn-warning btn-md pull-right" >SELL GOODS</i></a>
+              <a href="projects.php"><b class="btn btn-default btn-md pull-right" >PROJECTS</b></a>
            
           </li>
           <li>
-              <a href="transact.php"><i class="btn btn-success btn-md pull-right" >MPESA BANK</i></a>
+              <a href="transact.php"><b class="btn btn-default btn-md pull-right" >CUSTOMERS</b></a>
            
           </li>
           
           <li>
-              <a href="home.php"><i class="btn btn-warning btn-md pull-right" >HOME</i></a>
+              <a href="home.php"><b class="btn btn-default btn-md pull-right" >HOME</b></a>
            
           </li>
           

@@ -40,53 +40,29 @@ echo $role_id;
           </a>
           <ul class="treeview-menu">
               <li class="active"><a href="home.php"><i class="fa fa-home"></i> Home </a></li>
-              <li ><a href="transact.php"><i class="fa fa-key"></i> Mpesa/Banks </a></li>
-              <li><a href="shop2.php"><i class="fa fa-bank"> Sell Products</i></a></li>
-              <li><a href="closing_report"><i class="fa fa-dollar"></i> End of Day Report</a></li>
-              <li><a href="expense.php"><i class="fa fa-plus"> Record Expense</i></a></li>
           </ul>
         </li>
         
          <?php if($role_id == 1){ ?>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-bank"></i> <span>Mpesa/Banks</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-             
-              <li><a href="define_accounts.php"><i class="fa fa-plus"> Add Account</i></a></li>
-              <li><a href="allaccounts.php"><i class="fa fa-list-alt"> All Accounts</i></a></li>
-              <li><a href="closing_report"><i class="fa fa-dollar"></i> End of Day Report</a></li>
-              <li><a href="alltransactions"><i class="fa fa-file"></i> All Transactions</a></li>
-             
-             
-              
-          </ul>
-        </li>
-        
-        
         
         
         <li class="treeview">
           <a href="#">
-            <i class="fa fa-product-hunt"></i> <span>Products Master</span>
+            <i class="fa fa-product-hunt"></i> <span>Projects</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
               <?php if($role_id == 1){ ?>
-              <li><a href="product_categories.php"><i class="fa fa-product-hunt"> Product Categories</i></a></li>
-              <li><a href="products.php"><i class="fa fa-cart-plus"> Products</i></a></li>
-              <li><a href="invoices.php"><i class="fa fa-info-circle"> My Invoices</i></a></li>
-              <li><a href="create_invoice.php"><i class="fa fa-info-circle"> Receive Goods</i></a></li>
+              <li><a href="project_categories.php"><i class="fa fa-product-hunt"> Project Categories</i></a></li>
+              <li><a href="projects.php"><i class="fa fa-cart-plus"> Projects </i></a></li>
               <?php } ?>
               
           </ul>
         </li>
+        
+        
         
         <li class="treeview">
           <a href="#">
@@ -99,7 +75,6 @@ echo $role_id;
               <?php if($role_id == 1){ ?>
               <li><a href="staffs.php"><i class="fa fa-users"> Staff</i></a></li>   
               <?php } ?>
-              
           </ul>
         </li>
    
@@ -114,22 +89,6 @@ echo $role_id;
               <?php if($role_id == 1){ ?>
                <li><a href="customers.php"><i class="fa fa-users"> Customers</i></a></li>
                <li><a href="individual_report.php"><i class="fa fa-file-pdf-o"> Individual Report</i></a></li>
-              <?php } ?>
-              
-          </ul>
-        </li>
-        
-        
-         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-users"></i> <span>Suppliers</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-              <?php if($role_id == 1){ ?>
-              <li><a href="suppliers.php"><i class="fa fa-users"> Suppliers</i></a></li>
               <?php } ?>
               
           </ul>
@@ -156,7 +115,7 @@ echo $role_id;
         
         <li class="treeview">
           <a href="#">
-            <i class="glyphicon glyphicon-th-list"></i> <span>Sales Reports</span>
+            <i class="glyphicon glyphicon-th-list"></i> <span>Reports</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

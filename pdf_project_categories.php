@@ -96,7 +96,7 @@ $pdf->Cell(10, 7, "#", 1, 0, "L", 1);
                  
 
 
-       $pdf->Cell(160, 7, "Product Category", 1, 0, "C", 1);
+       $pdf->Cell(160, 7, "Project Category", 1, 0, "C", 1);
        
        
 
@@ -109,7 +109,7 @@ $y = $pdf->GetY();
 $x = 10;
 $pdf->setXY($x, $y);
 
- $statement = "SELECT * FROM `product_category`";
+ $statement = "SELECT * FROM `project_category`";
                         
 include('dao/connect.php');
 $result = $db->query($statement);
@@ -143,7 +143,7 @@ while ($row = $result->fetch_assoc()) {
         $pdf->setXY(20, 40);
 
        $pdf->Cell(10, 7, "#", 1, 0, "L", 1);
-       $pdf->Cell(160, 7, "Product Category", 1, 0, "C", 1);
+       $pdf->Cell(160, 7, "Project Category", 1, 0, "C", 1);
 
 
 

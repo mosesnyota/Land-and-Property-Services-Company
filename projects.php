@@ -28,9 +28,9 @@
                         
                         function WarningDelete(id) {
 
-                            if (confirm("WARNING !!\n\nYou are about to delete this Product\n\nDo you want to continue?")) {
+                            if (confirm("WARNING !!\n\nYou are about to delete this Project\n\nDo you want to continue?")) {
 
-                                window.location = "delete_product.php?id=" + id;
+                                window.location = "delete_project.php?id=" + id;
                                 /* $.ajax({
                                  type: "POST",
                                  url: "delete_customer.php",
@@ -67,8 +67,8 @@
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Products</a></li>
-        <li class="active">All Products</li>
+        <li><a href="#">Projects</a></li>
+        <li class="active">All Projects</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -79,8 +79,8 @@
           <div class="box">
           
           <div class="box-footer clearfix no-border">
-              <button type="button" class="btn btn-success btn-lg pull-left"  data-toggle="modal" data-target="#modal_new_product"> ADD NEW PRODUCT</button>
-              <a href="pdf_products.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
+              <button type="button" class="btn btn-success btn-lg pull-left"  data-toggle="modal" data-target="#modal_new_product"> ADD NEW PROJECT</button>
+              <a href="pdf_projects.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
           </div>
             <!-- /.box-header -->
             <div class="box-body">
