@@ -49,9 +49,7 @@
                       include('dao/connect.php');
                       $cat = $row['product_category'];
                       $result2 = $db->query("select * from product_category where category_id ='$cat'");
-                      
-                  
-                      
+
                       while ($de1 = $result2->fetch_assoc()) {
                            $catid1 = $de1['category_id'];
                            $cat1 = $de1['category'];  

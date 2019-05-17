@@ -54,7 +54,7 @@ $(".submit input[type='submit']").click(function(e) {
 				.to($(".morphButton"), 0.5, {"width": $(".morphButton").height(), "left": keepMeCentered, ease:Back.easeInOut, onComplete:function(){
 					TweenMax.to($(".loading"), 0.3, {"scale": "1", "display": "inline-block", "opacity": 1, ease: Power4.easeInOut, onComplete:function(){
 						setTimeout(morphSuccess, 0) /* Faking a little the loading process */
-                                                window.location = "transact.php";
+                                                window.location = "home.php";
 					}});
 				}}
 		);

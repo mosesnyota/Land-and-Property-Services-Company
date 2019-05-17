@@ -47,5 +47,6 @@ $role_id = $_SESSION['SESS_CATEGORY_'];
 
 <!-- jQuery 3 -->
  <?php include 'jquery.php'; ?>
+
 </body>
 </html>

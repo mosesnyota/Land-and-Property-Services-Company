@@ -54,7 +54,7 @@
   </header>
   <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
-        <?php include 'left_nav.php'; ?>
+        <?php include 'leftnav_projects.php'; ?>
 </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -62,8 +62,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        All Products
-      
+       PROJECTS
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -77,24 +76,25 @@
         <div class="col-xs-12">
             
           <div class="box">
+              
+           <div class="box-footer clearfix no-border">
+              <button type="button" class="btn btn-success btn-lg pull-left"  data-toggle="modal" data-target="#modal_new_project"> ADD PROJECT</button>
+               <a href="pdf_project_type.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
+           </div>
+            
           
-          <div class="box-footer clearfix no-border">
-              <button type="button" class="btn btn-success btn-lg pull-left"  data-toggle="modal" data-target="#modal_new_product"> ADD NEW PROJECT</button>
-              <a href="pdf_projects.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
-          </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Category</th>
-                  <th>Name</th>
-                  <th>Purchase Price</th>
-                  <th>Wholesale</th>
-                  <th>Retail</th>
-                  <th>Qnty on hand</th>
-                  
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>Customer</th>
+                  <th>Start</th>
+                  <th>End</th>
+                  <th>Status</th>
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
@@ -103,24 +103,27 @@
            <?php 
            
            include('dao/connect.php');
-            $statement = "SELECT products.*,`category` FROM `products` JOIN `product_category` ON products.`product_category` = `product_category`.`category_id`";
-            $result = $connection->query($statement);
-            $num = 0;
-            while($row = $result->fetch_assoc()) {
+           $statement = "SELECT `project_id`,`starting_date`,`expected_end_date`,DATEDIFF(CURDATE(),expected_end_date) AS days,`description`,status1,`project_type`,`fname`,`mname`,`lname`
+ FROM `customer` JOIN project ON customer.`cust_id` =project.`customer_id` JOIN `project_types` ON project.`project_type_id` = `project_types`.`project_type_id` where completed ='n' order by starting_date desc";
+           $result = $connection->query($statement);
+                        
+           
+           $num = 0;
+              while($row = $result->fetch_assoc()) {
                   $num++;
            ?>    
                <tr>
-                  <td> <?php echo $num; ?></td>
-                  <td> <?php echo $row['category']; ?> </td>
-                  <td> <?php echo $row['product_value']; ?></td>
-                  <td> <?php echo $row['purchase_price']; ?></td>
-                  <td> <?php echo $row['wholesale_price']; ?></td>
-                  <td> <?php echo $row['retail_price']; ?></td>
-                  <td> <?php echo $row['qnty']; ?></td>
-               
-                <td><a href="product_edit.php?id=<?php echo $row['product_id'] ?>" title="Click to Edit Customer Details"><i  <button type="button" class="btn btn-success hvr-icon-float-away btn-sm btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button></a></td>
-                <td> <a href="#" onclick="return WarningDelete(<?php echo $row['product_id'] ?>);" title="Click To Delete"><i <button type="button" class="btn btn-danger btn-sm hvr-icon-sink-away"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></i></a></td>		
-                                                 
+                <td> <?php echo $num; ?></td>
+                <td> <?php echo  strtoupper( $row['project_type']); ?> </td>
+                <td> <?php echo  strtoupper( $row['description']); ?> </td>
+                <td> <?php echo  strtoupper( $row['fname']." ". $row['mname']." ". $row['lname']); ?> </td>
+                <td> <?php echo date('d-m-Y',strtotime($row['starting_date'])); ?> </td>
+                <td> <?php echo date('d-m-Y',strtotime($row['expected_end_date']));  ?> </td>
+                
+                <td> <?php echo  $row['status1']; ?> </td>
+                 
+                <td><a href="edit_project.php?id=<?php echo $row['project_id'] ?>" title="Click to Edit Project  Details"><i  <button type="button" class="btn btn-success hvr-icon-float-away btn-sm btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button></a></td>
+                <td> <a href="#" onclick="return WarningDelete(<?php echo $row['project_id'] ?>);" title="Click To Delete"><i <button type="button" class="btn btn-danger btn-sm hvr-icon-sink-away"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></i></a></td>		                         
                 </tr>
               <?php }  ?>    
                 
@@ -128,7 +131,7 @@
                 
                 </tbody>
                 <tfoot>
-                
+               
                 </tfoot>
               </table>
             </div>
@@ -158,22 +161,6 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 3 -->
-<script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- DataTables -->
-<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
-<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
-<!-- SlimScroll -->
-<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- page script -->
 <script>
   $(function () {
     $('#example1').DataTable()
@@ -188,71 +175,193 @@
   })
 </script>
 
-<div class="modal modal-primary fade" id="modal_new_product">
+<!-- ./wrapper -->
+
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- Select2 -->
+<script src="bower_components/select2/dist/js/select2.full.min.js"></script>
+<!-- InputMask -->
+<script src="plugins/input-mask/jquery.inputmask.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<!-- date-range-picker -->
+<script src="bower_components/moment/min/moment.min.js"></script>
+<script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+<!-- bootstrap datepicker -->
+<script src="bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+<!-- bootstrap color picker -->
+<script src="bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<!-- bootstrap time picker -->
+<script src="plugins/timepicker/bootstrap-timepicker.min.js"></script>
+<!-- SlimScroll -->
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- iCheck 1.0.1 -->
+<script src="plugins/iCheck/icheck.min.js"></script>
+<!-- FastClick -->
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- Page script -->
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+    $('.select2').select2()
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+    //Date range picker
+    $('#reservation').daterangepicker()
+    //Date range picker with time picker
+    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+    //Date range as a button
+    $('#daterange-btn').daterangepicker(
+      {
+        ranges   : {
+          'Today'       : [moment(), moment()],
+          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+        },
+        startDate: moment().subtract(29, 'days'),
+        endDate  : moment()
+      },
+      function (start, end) {
+        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+      }
+    )
+
+    //Date picker
+    $('#datepicker').datepicker({
+      autoclose: true
+    })
+    
+    //Date picker
+    $('#datepicker2').datepicker({
+      autoclose: true
+    })
+
+    //iCheck for checkbox and radio inputs
+    $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+      checkboxClass: 'icheckbox_minimal-blue',
+      radioClass   : 'iradio_minimal-blue'
+    })
+    //Red color scheme for iCheck
+    $('input[type="checkbox"].minimal-red, input[type="radio"].minimal-red').iCheck({
+      checkboxClass: 'icheckbox_minimal-red',
+      radioClass   : 'iradio_minimal-red'
+    })
+    //Flat red color scheme for iCheck
+    $('input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+      checkboxClass: 'icheckbox_flat-green',
+      radioClass   : 'iradio_flat-green'
+    })
+
+    //Colorpicker
+    $('.my-colorpicker1').colorpicker()
+    //color picker with addon
+    $('.my-colorpicker2').colorpicker()
+
+    //Timepicker
+    $('.timepicker').timepicker({
+      showInputs: false
+    })
+  })
+</script>
+
+
+<div class="modal modal-primary fade" id="modal_new_project">
           <div class="modal-dialog">
             <div class="modal-content">
-              
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">ADD NEW PRODUCT</h4>
+                <h4 class="modal-title">ADD NEW PROJECT</h4>
               </div>
               <div class="modal-body">
-                  
-                  
-                  <form role="form" action="save_product.php" method="post"  enctype="multipart/form-data">
-              <div class="box-body"> 
-           
-                <div class="form-group">
-                  <label for="product_category">Category:</label>
-                  <select class="form-control" id="product_category" name="product_category" required >
-                      <option value="">--------Select Category----------</option>
-                      <?php 
-                      include('dao/connect.php');
-        $result = $db->query("select * from product_category");
-        while ($de = $result->fetch_assoc()) {
-            $catid = $de['category_id'];
-            $cat = $de['category'];?>  
-                      <option value="<?php echo $catid;  ?>"><?php echo $cat; ?></option>    
-         <?php } ?>
-                  </select>
-                </div>
-                  
-                <div class="form-group">
-                  <label for="product_name">Product Name:</label>
-                  <input name="product_name" type="text" class="form-control" id="product_name"   required placeholder="eg Safcom 100">
-                </div>
-                  
-                <div class="form-group">
-                  <label for="purchase_price">Purchase Price:</label>
-                  <input type="text" class="form-control" id="purchase_price" name="purchase_price" autocomplete="off" placeholder="Purchase Price per Unit">
-                </div>
-               
-               <div class="form-group">
-                  <label for="wholesale_price">Wholesale Price.</label>
-                  <input type="text" class="form-control" id="wholesale_price"  autocomplete="off" name="wholesale_price"  required placeholder="Wholesale Price">
-               </div>
-                  
-               <div class="form-group">
-                  <label for="retail_price">Retail Price:</label>
-                  <input type="text" class="form-control" id="retail_price"  autocomplete="off" name="retail_price"  placeholder="Retail Price per unit">
-               </div>
-               <div class="form-group">
-                  <label for="qnty">Quantity on Hand:</label>
-                  <input type="text" class="form-control" id="qnty"  name="qnty" autocomplete="off" required placeholder="Quantity on Hand">
-               </div>
-               
+             <form role="form" action="save_project.php" method="post"  enctype="multipart/form-data">
                 
+                
+                <div class="form-group">
+                  <label for="projecttype">Project Type:</label>
+                  <?PHP
+                  include('dao/connect.php');
+            $statementR = "select * from project_types";
+           $resultR = $connection->query($statementR);?>
+       
+                  <select class="form-control" name="projecttype">
+                      <option>---------Select Project Type--------</option>
+             <?php while($rowR = $resultR->fetch_assoc()) { ?>
                   
+                      <option value="<?php echo $rowR['project_type_id'] ?>"><?php echo $rowR['project_type'] ?> </option>
+             
+               <?php }?>
+                 </select>  
+                  
+                 
+                </div>
+                 
+                 
+                 <div class="form-group">
+                  <label for="customer">Customer:</label>
+                  <?PHP
+                  include('dao/connect.php');
+            $statementR = "select * from customer";
+           $resultR = $connection->query($statementR);?>
+       
+                  <select class="form-control" name="customer">
+                      <option>---------Select Customer--------</option>
+             <?php while($rowR = $resultR->fetch_assoc()) { ?>
+                  
+                      <option value="<?php echo $rowR['cust_id'] ?>"><?php echo $rowR['fname']." ".$rowR['mname']." ".$rowR['lname'] ?> </option>
+             
+               <?php }?>
+                 </select>  
+     
+                </div>
+                 
+                 
+             <div class="form-group">
+               <label>Starting Date:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="startingdate" class="form-control pull-right" id="datepicker" placeholder="Starting Date">
+                </div>
               </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer" align="center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                 
+              <div class="form-group">
+               <label>Target Completion Date:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="completiondate" class="form-control pull-right" id="datepicker2" placeholder="Completion Date">
+                </div>
+              </div>
+                 
+               <div class="form-group">
+                  <label for="description">Project Description.</label>
+                  <input type="text" class="form-control" id="description"   name="description"  required placeholder="Description">
+               </div>
+                
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Project</button>
               </div>
             </form>
-                  
-          
               </div>
               
             </div>

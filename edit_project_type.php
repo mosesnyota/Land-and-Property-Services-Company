@@ -1,16 +1,3 @@
-<?php 
-function getBalance($id){
-    include('dao/connect.php');
-    $statement = "SELECT SUM((`total_amount`-`amount_paid`)) AS deposits FROM sales where customer_id ='$id'";
-    $deposits = 0;
-    $result = $connection->query($statement);
-    while($row = $result->fetch_assoc()) {
-           $deposits = $row['deposits'];
-      }
-    return $deposits;
-}
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,12 +14,12 @@ function getBalance($id){
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        EDIT CUSTOMER DETAILS
+        EDIT PROJECT TYPE DETAILS
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Customer</a></li>
-        <li class="active">Edit Customer</li>
+        <li><a href="#">Projects</a></li>
+        <li class="active">Edit Project Type</li>
       </ol>
     </section>
       
@@ -44,49 +31,28 @@ function getBalance($id){
           <div class="box box-primary">
            
               
-    <form role="form" action="save_updated_customer.php" method="post"  enctype="multipart/form-data">
+              <form role="form" action="save_updated_project_type.php" method="post"  enctype="multipart/form-data">
               <div class="box-body"> 
            
         <?php 
             $id = $_GET['id'];
             include('dao/connect.php');
-            $statement = "select * from customer where cust_id = '$id'";
+            $statement = "select * from project_types where project_type_id = '$id'";
             $result = $connection->query($statement);
            $num = 0;
               while($row = $result->fetch_assoc()) { $num++; ?>        
                 <div class="form-group">
-                  <label for="fname">First Name:</label>
-                  <input name="fname" type="text" class="form-control" id="fname" name="fname" required value ="<?php echo $row['fname'] ;?>">
+                  <label for="ptype">Project Type:</label>
+                  <input name="ptype" type="text" class="form-control" id="ptype" required value ="<?php echo $row['project_type'] ;?>">
                 </div>
-                <div class="form-group">
-                  <label for="mname">Middle Name:</label>
-                  <input name="mname" type="text" class="form-control" id="mname"    value ="<?php  echo $row['mname'] ;?>">
-                </div>
-                <div class="form-group">
-                  <label for="lname">Last Name:</label>
-                  <input type="text" class="form-control" id="lname" name="lname"  value ="<?php echo $row['lname'] ;?>">
-                </div>
-               <div class="form-group">
-                  <label for="idno">ID No.</label>
-                  <input type="text" class="form-control" id="idno"   name="idno"   value ="<?php echo $row['idno'];?>">
-               </div>
-               
-               <div class="form-group">
-                  <label for="phone">Phone:</label>
-                  <input type="text" class="form-control" id="phone"  name="phone"   value ="<?php echo $row['phone'] ;?>">
-               </div>
-               <div class="form-group">
-                  <label for="emailadd">Email:</label>
-                  <input type="text" class="form-control" id="emailadd"  name="emailadd"   value ="<?php echo $row['email'] ;?>">
-               </div>
                 
-                  <input type="hidden" class="form-control" id="id"  name="id" value ="<?php echo $row['cust_id'] ;?>">
+                  <input type="hidden" class="form-control" id="id"  name="id" value ="<?php echo $row['project_type_id'] ;?>">
                 <?php }  ?>        
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Save</button>
               </div>
     </form></div>
               

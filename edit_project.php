@@ -1,15 +1,4 @@
-<?php 
-function getBalance($id){
-    include('dao/connect.php');
-    $statement = "SELECT SUM((`total_amount`-`amount_paid`)) AS deposits FROM sales where customer_id ='$id'";
-    $deposits = 0;
-    $result = $connection->query($statement);
-    while($row = $result->fetch_assoc()) {
-           $deposits = $row['deposits'];
-      }
-    return $deposits;
-}
-?>
+
 
 <!DOCTYPE html>
 <html>
@@ -27,12 +16,12 @@ function getBalance($id){
   <div class="content-wrapper">
     <section class="content-header">
       <h1>
-        EDIT CUSTOMER DETAILS
+        EDIT PROJECT DETAILS
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Customer</a></li>
-        <li class="active">Edit Customer</li>
+        <li><a href="#">Projects</a></li>
+        <li class="active">Edit Project</li>
       </ol>
     </section>
       
@@ -44,43 +33,98 @@ function getBalance($id){
           <div class="box box-primary">
            
               
-    <form role="form" action="save_updated_customer.php" method="post"  enctype="multipart/form-data">
+              <form role="form" action="save_updated_project.php" method="post"  enctype="multipart/form-data">
               <div class="box-body"> 
            
         <?php 
             $id = $_GET['id'];
             include('dao/connect.php');
-            $statement = "select * from customer where cust_id = '$id'";
+            $statement = "select * from project where project_id = '$id'";
             $result = $connection->query($statement);
            $num = 0;
               while($row = $result->fetch_assoc()) { $num++; ?>        
+                
                 <div class="form-group">
-                  <label for="fname">First Name:</label>
-                  <input name="fname" type="text" class="form-control" id="fname" name="fname" required value ="<?php echo $row['fname'] ;?>">
+                  <label for="projecttype">Project Type:</label>
+                  <?PHP
+                  include('dao/connect.php');
+            $statementR = "select * from project_types";
+           $resultR = $connection->query($statementR);?>
+       
+                  <select class="form-control" name="projecttype">
+                      
+             <?php while($rowR = $resultR->fetch_assoc()) { 
+                 
+                 
+                 if($rowR['project_type_id'] ==$row['project_type_id'] ){
+                     ?>
+                  
+                     
+                      <option value="<?php echo $rowR['project_type_id'] ?>" selected="true"><?php echo $rowR['project_type'] ?> </option>
+             
+                 <?php
+                 }else{
+                 ?>
+                      <option value="<?php echo $rowR['project_type_id'] ?>"><?php echo $rowR['project_type'] ?> </option>
+                 <?php } }?>
+                 </select>  
                 </div>
-                <div class="form-group">
-                  <label for="mname">Middle Name:</label>
-                  <input name="mname" type="text" class="form-control" id="mname"    value ="<?php  echo $row['mname'] ;?>">
+                 
+                 
+                 <div class="form-group">
+                  <label for="customer">Customer:</label>
+                  <?PHP
+                  include('dao/connect.php');
+            $statementR = "select * from customer";
+            $resultR = $connection->query($statementR);?>
+       
+                  <select class="form-control" name="customer">
+             <?php while($rowR = $resultR->fetch_assoc()) { 
+                 
+                   if($rowR['cust_id'] == $row['customer_id'] ){
+                       ?>
+                  
+                      <option value="<?php echo $rowR['cust_id'] ?>" selected><?php echo $rowR['fname']." ".$rowR['mname']." ".$rowR['lname'] ?> </option>
+             
+                   <?php
+                   }else{
+                 
+                 ?>
+                  
+                      <option value="<?php echo $rowR['cust_id'] ?>"><?php echo $rowR['fname']." ".$rowR['mname']." ".$rowR['lname'] ?> </option>
+             
+                   <?php }}?>
+                 </select>  
+     
                 </div>
-                <div class="form-group">
-                  <label for="lname">Last Name:</label>
-                  <input type="text" class="form-control" id="lname" name="lname"  value ="<?php echo $row['lname'] ;?>">
+                 
+                 
+             <div class="form-group">
+               <label>Starting Date:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="startingdate" class="form-control pull-right" id="datepicker" value="<?php echo $row['starting_date'] ?>">
                 </div>
+              </div>
+                 
+              <div class="form-group">
+               <label>Target Completion Date:</label>
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" name="completiondate" class="form-control pull-right" id="datepicker2" value="<?php echo $row['expected_end_date'] ?>">
+                </div>
+              </div>
+                 
                <div class="form-group">
-                  <label for="idno">ID No.</label>
-                  <input type="text" class="form-control" id="idno"   name="idno"   value ="<?php echo $row['idno'];?>">
-               </div>
-               
-               <div class="form-group">
-                  <label for="phone">Phone:</label>
-                  <input type="text" class="form-control" id="phone"  name="phone"   value ="<?php echo $row['phone'] ;?>">
-               </div>
-               <div class="form-group">
-                  <label for="emailadd">Email:</label>
-                  <input type="text" class="form-control" id="emailadd"  name="emailadd"   value ="<?php echo $row['email'] ;?>">
+                  <label for="description">Project Description.</label>
+                  <input type="text" class="form-control" id="description"   name="description"  required value="<?php echo $row['description'] ?>">
                </div>
                 
-                  <input type="hidden" class="form-control" id="id"  name="id" value ="<?php echo $row['cust_id'] ;?>">
+                  <input type="hidden" class="form-control" id="id"  name="id" value ="<?php echo $row['project_id'] ;?>">
                 <?php }  ?>        
               </div>
               <!-- /.box-body -->
@@ -185,6 +229,11 @@ function getBalance($id){
 
     //Date picker
     $('#datepicker').datepicker({
+      autoclose: true
+    })
+    
+    //Date picker
+    $('#datepicker2').datepicker({
       autoclose: true
     })
 

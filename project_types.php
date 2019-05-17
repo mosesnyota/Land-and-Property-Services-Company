@@ -28,9 +28,9 @@
                         
                         function WarningDelete(id) {
 
-                            if (confirm("WARNING !!\n\nYou are about to delete this Supplier\n\nDo you want to continue?")) {
+                            if (confirm("WARNING !!\n\nYou are about to delete this Project Type\n\nDo you want to continue?")) {
 
-                                window.location = "delete_supplier.php?id=" + id;
+                                window.location = "delete_project_type.php?id=" + id;
                                 /* $.ajax({
                                  type: "POST",
                                  url: "delete_customer.php",
@@ -54,7 +54,7 @@
   </header>
   <!-- Left side column. contains the logo and sidebar -->
 <aside class="main-sidebar">
-        <?php include 'left_nav.php'; ?>
+        <?php include 'leftnav_projects.php'; ?>
 </aside>
 
   <!-- Content Wrapper. Contains page content -->
@@ -62,13 +62,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        All Suppliers
-       
+        Project Types
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Suppliers</a></li>
-        <li class="active">All Suppliers</li>
+        <li><a href="#">Projects</a></li>
+        <li class="active">Types</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -77,11 +76,12 @@
         <div class="col-xs-12">
             
           <div class="box">
-            
+              
            <div class="box-footer clearfix no-border">
-              <button type="button" class="btn btn-success btn-lg pull-left"  data-toggle="modal" data-target="#modal_new_supplier"> ADD SUPPLIER</button>
-              <a href="pdf_supplier.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
+              <button type="button" class="btn btn-success btn-lg pull-left"  data-toggle="modal" data-target="#modal_new_project_type"> Add Type</button>
+               <a href="pdf_project_type.php" target="_blank" class="success pull-right"><i class='glyphicon glyphicon-print'></i>&nbsp;Print PDF</a>
            </div>
+            
           
             <!-- /.box-header -->
             <div class="box-body">
@@ -89,9 +89,9 @@
                 <thead>
                 <tr>
                   <th>#</th>
-                  <th>Contact Person</th>
-                  <th>Company</th>
-                  <th>Phone</th>
+                  <th>Name</th>
+              
+
                   <th>Edit</th>
                   <th>Delete</th>
                 </tr>
@@ -100,8 +100,8 @@
            <?php 
            
            include('dao/connect.php');
-                            $statement = "select * from suppliers";
-                            $result = $connection->query($statement);
+           $statement = "select * from project_types";
+           $result = $connection->query($statement);
                         
            
            $num = 0;
@@ -109,15 +109,10 @@
                   $num++;
            ?>    
                <tr>
-                  <td> <?php echo $num; ?></td>
-                  <td> <?php echo $row['contact_person']; ?> </td>
-                  <td> <?php echo $row['company_name']; ?> </td>
-                  <td> <?php echo $row['phone']; ?></td>
-     
-                 
-                <td><a href="supplier_edit.php?id=<?php echo $row['supplier_id'] ?>" title="Click to Edit Supplier Details"><i  <button type="button" class="btn btn-success hvr-icon-float-away btn-sm btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button></a></td>
-                <td> <a href="#" onclick="return WarningDelete(<?php echo $row['supplier_id'] ?>);" title="Click To Delete"><i <button type="button" class="btn btn-danger btn-sm hvr-icon-sink-away"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></i></a></td>		
-                                                 
+                <td> <?php echo $num; ?></td>
+                <td> <?php echo  strtoupper( $row['project_type']); ?> </td>
+                <td><a href="edit_project_type.php?id=<?php echo $row['project_type_id'] ?>" title="Click to Edit Project Type Details"><i  <button type="button" class="btn btn-success hvr-icon-float-away btn-sm btn-md"><i class="fa fa-edit" aria-hidden="true"></i> Edit</button></a></td>
+                <td> <a href="#" onclick="return WarningDelete(<?php echo $row['project_type_id'] ?>);" title="Click To Delete"><i <button type="button" class="btn btn-danger btn-sm hvr-icon-sink-away"><i class="fa fa-trash" aria-hidden="true"></i> Delete</button></i></a></td>		                         
                 </tr>
               <?php }  ?>    
                 
@@ -125,7 +120,7 @@
                 
                 </tbody>
                 <tfoot>
-                
+               
                 </tfoot>
               </table>
             </div>
@@ -186,53 +181,30 @@
 </script>
 
 
-<div class="modal modal-primary fade" id="modal_new_supplier">
+
+
+<div class="modal modal-primary fade" id="modal_new_project_type">
           <div class="modal-dialog">
             <div class="modal-content">
-              
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">ADD NEW SUPPLIER</h4>
+                <h4 class="modal-title">ADD NEW PROJECT TYPE</h4>
               </div>
               <div class="modal-body">
-                  
-                  
-                  <form role="form" action="save_supplier.php" method="post"  enctype="multipart/form-data">
-              <div class="box-body"> 
-           
+             <form role="form" action="save_project_type.php" method="post"  enctype="multipart/form-data">
+                
+                
                 <div class="form-group">
-                  <label for="fname">Company Name:</label>
-                  <input name="fname" type="text" class="form-control" id="fname" name="fname" required placeholder="Company Name">
+                  <label for="projecttype">Project Type:</label>
+                  <input name="projecttype" type="text" autocomplete="off" class="form-control" id="projecttype" required autofocus="true">
                 </div>
-                  
-                <div class="form-group">
-                  <label for="mname">Contact Person:</label>
-                  <input name="mname" type="text" class="form-control" id="mname"    placeholder="Contact Person">
-                </div>
-                  
-             
-               <div class="form-group">
-                  <label for="phone">Phone:</label>
-                  <input type="text" class="form-control" id="phone"  name="phone"   placeholder="Phone No">
-               </div>
-               
-                <div class="form-group">
-                  <label for="emailadd">Email address</label>
-                  <input type="text" class="form-control" id="emailadd"  name="emailadd"  placeholder="Enter email">
-                </div>
-                  
-              
-                  
-              </div>
-              <!-- /.box-body -->
-
-              <div class="box-footer" align="center">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save Project Type</button>
               </div>
             </form>
-                  
-          
               </div>
               
             </div>
@@ -240,9 +212,6 @@
           </div>
           <!-- /.modal-dialog -->
     </div>
-
-</body>
-</html>
 
 </body>
 </html>

@@ -12,41 +12,7 @@ function getTotalDeposits(){
     return $deposits;
 }
 
-function getTotalTransactions(){
-    include('dao/connect.php');
-    $statement = "SELECT COUNT(*) AS transactionss FROM `transactions` WHERE  DATE_FORMAT(`trans_date`,'%Y-%m-%d') = CURDATE()";
-    $deposits = 0;
-    $result = $connection->query($statement);
-    while($row = $result->fetch_assoc()) {
-           $deposits = $row['transactionss'];
-      }
-    return $deposits;
-}
-
-function getStartingCash(){
-    include('dao/connect.php');
-    $statement = "SELECT `cash_amount` FROM `cashsettings` ";
-    $deposits = 0;
-    $result = $connection->query($statement);
-    while($row = $result->fetch_assoc()) {
-           $deposits = $row['cash_amount'];
-      }
-    return $deposits;
-}
-
-
-function getTotalWithdrawals(){
-    include('dao/connect.php');
-    $statement = "SELECT SUM(`trans_amount`) AS deposits FROM `transactions` WHERE `trans_type` ='W' and DATE_FORMAT(`trans_date`,'%Y-%m-%d') = CURDATE()";
-    $deposits = 0;
-    $result = $connection->query($statement);
-    while($row = $result->fetch_assoc()) {
-           $deposits = $row['deposits'];
-      }
-    return $deposits;
-}
-
-                    
+                 
 
 
 
@@ -68,12 +34,9 @@ function getTotalWithdrawals(){
   </style>
 
 <section class="content-header">
-      <h1>
-        Today's Statistics
-      </h1>
+      
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Today's Statistics</li>
+        <li class="active"></li>
       </ol>
     </section> 
   
@@ -901,26 +864,7 @@ function getTotalWithdrawals(){
     </section>
        
   
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-<!-- Bootstrap 3.3.7 -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- FastClick -->
-<script src="bower_components/fastclick/lib/fastclick.js"></script>
-<!-- AdminLTE App -->
-<script src="dist/js/adminlte.min.js"></script>
-<!-- Sparkline -->
-<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
-<!-- jvectormap  -->
-<script src="plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
-<script src="plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- SlimScroll -->
-<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-<!-- ChartJS -->
-<script src="bower_components/chart.js/Chart.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="dist/js/pages/dashboard2.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
+
   
   
   

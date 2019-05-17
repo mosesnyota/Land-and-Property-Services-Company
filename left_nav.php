@@ -4,11 +4,11 @@
 
 
 
-error_reporting(0);
-ini_set('display_errors', 0);
-require 'auth.php';
-$role_id = $_SESSION['SESS_CATEGORY_'];
-echo $role_id;
+//error_reporting(0);
+//ini_set('display_errors', 0);
+//require 'auth.php';
+//$role_id = $_SESSION['SESS_CATEGORY_'];
+//echo $role_id;
 
 ?>
 <section class="sidebar">
@@ -43,7 +43,7 @@ echo $role_id;
           </ul>
         </li>
         
-         <?php if($role_id == 1){ ?>
+        
         
         
         <li class="treeview">
@@ -54,11 +54,10 @@ echo $role_id;
             </span>
           </a>
           <ul class="treeview-menu">
-              <?php if($role_id == 1){ ?>
-              <li><a href="project_categories.php"><i class="fa fa-product-hunt"> Project Categories</i></a></li>
+           
+              <li><a href="project_types.php"><i class="fa fa-product-hunt"> Project Categories</i></a></li>
               <li><a href="projects.php"><i class="fa fa-cart-plus"> Projects </i></a></li>
-              <?php } ?>
-              
+
           </ul>
         </li>
         
@@ -72,9 +71,9 @@ echo $role_id;
             </span>
           </a>
           <ul class="treeview-menu">
-              <?php if($role_id == 1){ ?>
+           
               <li><a href="staffs.php"><i class="fa fa-users"> Staff</i></a></li>   
-              <?php } ?>
+             
           </ul>
         </li>
    
@@ -86,10 +85,10 @@ echo $role_id;
             </span>
           </a>
           <ul class="treeview-menu">
-              <?php if($role_id == 1){ ?>
+            
                <li><a href="customers.php"><i class="fa fa-users"> Customers</i></a></li>
                <li><a href="individual_report.php"><i class="fa fa-file-pdf-o"> Individual Report</i></a></li>
-              <?php } ?>
+            
               
           </ul>
         </li>
@@ -102,11 +101,11 @@ echo $role_id;
             </span>
           </a>
           <ul class="treeview-menu">
-              <?php if($role_id == 1){ ?>
+            
               <li><a href="expense_types.php"><i class="fa fa-dollar"> Expense Types</i></a></li>
               <li><a href="expense.php"><i class="fa fa-plus"> Record Expense</i></a></li>
              
-              <?php } ?>
+         
               
           </ul>
         </li>
@@ -122,7 +121,7 @@ echo $role_id;
           </a>
           <ul class="treeview-menu">
               
-              <?php if($role_id == 1){ ?>
+             
                <li><a href="sales_report.php"><i class="fa fa-file-pdf-o"> Sales Report</i></a></li>
                <li><a href="unpaid_sales.php"><i class="fa fa-file-pdf-o"> Unpaid Sales</i></a></li>
                <li><a href="sales_summary.php"><i class="fa fa-file-pdf-o"> Sales Summary</i></a></li>
@@ -130,16 +129,17 @@ echo $role_id;
                <li><a href="individual_report.php"><i class="fa fa-file-pdf-o"> Customer Reports</i></a></li>
                <li><a href="sales_profit.php"><i class="fa fa fa-file-pdf-o"> Sales Profit</i></a></li>
                <li><a href="expenses_report.php"><i class="fa fa-file-pdf-o"> Expenses Report</i></a></li>
-              <?php } ?>
+              
           </ul>
         </li>
-        <?php } ?> 
+        
+        
+        
+        
+        
         
         
         
        
-        
-        
-        
       </ul>
     </section>
